@@ -74,8 +74,8 @@
 \newcommand{\myAuthorName}{Aragats Amirkhanyan}
 \newcommand{\myUni}{Hasso Plattner Institute}
 \newcommand{\myAuthorEmail}{aragats.amirkhanyan@hpi.de}
-\newcommand{\myArticleTitle}{Security analysis based on the test environment}
-
+\newcommand{\myArticleTitle}{Automation Research in Computer Science}
+\newcommand{\myProjectName}{Security Lab Generator}
 \newcommand{\myNDS}{Network Designer Service}
 \newcommand{\myPLT}{Provision Language Translator}
 \newcommand{\myPS}{Provision System}
@@ -127,8 +127,7 @@
 
 \noindent 
 \large %Font size
-Research in the field of Information Security is always faced with the problem of lack of data or a suitable environment. This problem is not limited to research in the field of information security, but also for other areas. For research in the field of information security - is a big problem. Researchers have to find solutions for generate data, constructing a suitable environment, etc. A lot of affords to start the research. In the report, we consider examples of how we in the security group of the chair "Internet Technologies and Systems" solve similar problems. We consider the typical ways of solving them and consider a prototype project that we could help to simplify the implementation of research.
-%\lipsum[1] % Dummy abstract text
+The main problem for researchers is the lack of data or lack of the necessary environment, or both.  Researchers are forced to start from the preparation phase of research. The report consider the concept of the project, which could solve some problems of preparation stage for researches such as deployment research environment, data generation, applying common scenarios that can be reused and extended. The concept project contains 4 systems. Each system can be used independently or in combination with others to meet all requirements. The project does not take on the task of helping to automate all processes of researches, but only preparation stages and scenarios for base researches in Computer Scenes.
 
 \end{abstract}
 
@@ -142,80 +141,15 @@ Research in the field of Information Security is always faced with the problem o
 
 %\lettrine[nindent=0em,lines=3]{L} orem ipsum dolor sit amet, consectetur adipiscing elit.
 %\lipsum[2-3] % Dummy text
-Many research projects come from the industrial companies. It is seems that if the company is interested in success result of the research, the should provide all needed information, data, their environment. But they do not it. And obviously, the reason has a secure aspect. Most of researchers have to spend a big part of their time for preparing or generate data, deploy research environments and so on. The lack of the data is a big problem academic world. The preparation stage has quite big overhead of the research work, which could be overcome in some cases. It is not a secret that many researchers do the almost same researches which require the same data, the same environment. And every time they have to invent new bicycle. 
+Many research projects come from the industrial companies. It is seems that if the company is interested in success result of the research, the should provide all necessary information, data, research environments. But they do not it. And obviously, the reason has a secure aspect. Most of researchers have to spend a big part of their time for preparing or generate data, deploy research environments and so on. The lack of the data is a big problem of the academic world. The preparation stage has quite big overhead of the research work, that could be overcome in some cases. It is not a secret that many researchers sometimes do almost the same researches that require the same data, the same environments. So it means they almost the same preparation stage. They do some common base scenarios. And every time they have to invent new bicycle and in most cases it is just a waste of time. It would be nice to have some tool for overcoming this overhead, to automatize the common research processes and make research easier and give opportunity to concentrate on the research purposes. 
 
-In this report we mostly speak about the problems of the security researches. We mention certain problems which we impact during the security research and the way of solving the problems. The report include the overview the prototype application which the main goal is to simplify the preparation stage of the research and make possible to overcome the research overhead. Despite the fact that the report contains information about security research all of that could be used for solving problems in the research project of other areas.      
+In this report we mostly speak about the problems of preparation stage for researches in Computer. Of course, we do not try to cover the all researches in Computer Science, but we try to cover researches requiring some research environment as a computer network with hosts, routers, firewalls, installed different softwares and generating data for the research environments based on some pre-defined common scenarios such as user login, logout events, installation, connection between host, running service and so on. 
 
+The report includes the overview, thoughts, ideas about the prototype application that has the main goal is to simplify the preparation stage of the research and make possible to overcome the research overhead. Despite the fact that the report considers the project for researches it could be used by others developers, administrators and any users. 
 
-\section{Deploy test environment}
-Many security network and software analysis research start with preparing the test environment. The test environment is deployed in the most cases as the virtual network with configured hosts, routers, networks and all others resources including users account. The test environment could be deployed on the local computer by using the software for virtualization like the VirtualBox, VmWare Workstation and others or could be deployed on the remote server with installed hypervisor software like VMware vSphere Hypervisor (ESXi).          
-
-The common way to create the developing environment is to do it manually. You have to download image of operation system, install it on the Virtual Machine, configure it, install necessary softwares. The developing environment is usually more complex just one virtual machine, so you have to do the same step several. In some cases you can just clone virtual machine, but you still have to do a lot of manual work.       
-  
-There are some software which can simplify the process of creating the developing/test environment. One of the them is Vagrant. Vagrant allows to create and configure lightweight, reproducible, and portable development environments. The configured environment could be reused. Vagrant project has the relative project which is called VagrantCloud. The project is hosted on the https://vagrantcloud.com. It is some kind of the catalog of prepared environments. The prepared developing environment is called box.  People could share with community their boxes. Everyone could find the appropriate environment and reuse it instead of configuring new one. Vagrant allows to deploy the environment into the local VirtualBox, VMware Workstation, Aamazon Web Service (AWS). It means researchers are quite free in using the platform. The features of the Vagrant are not bound only by running the environment. The application a lot of give capabilities including synchronizing between the host and guest machine, integration with Chef[*], Puppet[*] and other. Learn more on the official website http://www.vagrantup.com/ 
-
-The process of creating the development/test environment can by simplify by cloud providers. Many cloud providers provide capability easy to install and run virtual machine with any operation systems, configure the network and many other features. The most popular is Amazon Web Service (AWS). AWS is Infrastructure-as-a-Service. AWS provides huge amount of service which could solve any problem.  You could combine any infrastructure service to create the certain development environment. I mentioned just AWS, but the market of cloud providers grows extremely so it is possible find any other. As Vagrant AWS also provide capability to save configuration of the development environment, distribute it and reuse.
-
-But we are talking about the researches with security aspects. It means that results and the process of the research in the most cases must secret. In this case it is not possible to use public cloud providers. Here opensource communities come to help us. There si not sense to tell that opensource communities grow extremely. A lot of big IT companies invest into the opensource projects. Many of these opensource projects are widely spread. They are use everywhere. So it does not go past the cloud technologies. There several opensource cloud platform which could be used for creating own IaaS, PaaS and other. Some of them: OpenStack, OpenNebula,  OpenShift Origin and so on. So clouds become private. For us it means that we could create our test/development environments by using flexibility and capability of cloud services. But still there are some problems and overhead of creating the test/development environments. It could be solved by using the PaaS, but PaaS's are usually designed for specific task mostly for running the infrastructure for web applications in Java, PHP, Ruby and so on. No one does provide flexible platform as a service based on all functionality of infrastructure as a service. We would like to call it Platform as a Infrastructure (PaaI). Jeslastic[*] uses this definition for describing its service, but they include other meaning into this definition.     
-
-        
-
-
-\section{Simulation of users behaviors}
-There is task to analyses the behavior of users to predict attacks or abnormal behavior. There are some algorithms for Attack Prediction based on Machine Learning [http://www.csjournals.com/IJCSC/PDF1-2/51..pdf]. The algorithms could be used for research purposes, in this task the big problem is lack of data. The customer do not want and can not provide Active Directory log files which contains information about user activities. We have to start research since writing the script for simulation user behaviors. 
-
-The Scenario in our case is the description of the network infrastructure, information about users, and scenario of their behavior. To analysis user behaviors by predict algorithms we must have normal scenario and abnormal scenario.  
-  
-\subsection{Environment description}
-
-Description of a network:
-\begin{compactitem}
-\item 4 computers.
-\item Domain controller. 
-\item Wiki Server.
-\item DB server.
-\end{compactitem}
-Users: 
-\begin{compactitem}
-\item Petrov
-\item Ivanov 
-\item Smirnov
-\item Admin
-\end{compactitem}
-     
-\subsection{Normal scenario}
-Figure 1. Usually ordinal users login to their computers. They do it several times per day. All users and admin have an access to Wiki, but Ivanov usually do not use it. Admin usually login to Domain Controller. Other users do not do it, because their do not have an access. Ivanov does not login to wiki, but he has an access. Others users do it. Ivanov sometimes login to DB Server. Others users do not do it, but they have an access.
-\begin{figure}[ht!]
-\centering
-%[width=90mm]
-\includegraphics{scenario_normal.png}
-\caption{Normal scenario}
-\label{overflow}
-\end{figure}
-
-\subsection{Abnormal scenario}
-Figure 2. Ivanov logged to wiki. He usually does not do it, but he has an access and other users do it every day. Petrov logged to DB server. He has an access, but according to the normal behavior only Ivanov uses the DB server. So it could be abnormal behavior.  
-
-\begin{figure}[ht!]
-\centering
-%[width=90mm]
-\includegraphics{scenario_abnormal.png}
-\caption{Abnormal scenario}
-\label{overflow}
-\end{figure}
-
-\subsection{Implementation}
-The network is deployed and configured manually on the FutureSOC server with WMware ESXi. The script for the simulation users activities is written in Python with using additional libraries for connecting to Virtual Machines by VNC and making screenshots. There are 3 csv files for describing the whole scenario. The first of them (computers.csv) describe the the all computers which participate in the scenario. It contains the information about computer identifier, IP, port, VNC password and type of operation system(OS).
-The second (scenarios.csv) describes the main user activity. The main user activity means the connection to the local computer. The files contains computer identifier to connect, username, password, session time, count of sessions and identifier of inner scenario.
-The third (inner-scenarios.csv) describes the user activity after login to the local computer. For example, it could describe the connection to the wiki, the DB server or Domain Controller or even connection to another user computer.  
-There are two sets of csv files. The first set is used to perform normal scenario and the second is used to perform abnormal scenario 	
-accordingly. Normal scenario takes about 3,5 hours and abnormal scenario takes about 5,5 hours.
- 
-
-\section{Automatization of research}
-
-\subsection{Motivation}
-As we can see from previous sections there is quite big overhead of research in preparing the research environment and performing the basic scenarios. Many researchers usually do common things, scenarios, but for different purpose. Everytime they have to invent new bicycle and in most cases it is just a waste of time. It would be nice to have some tool for overcoming this overhead, to automatize the common research processes and make research easier. We suggest the concept of the project consists of four independent projects. Each project could be used independent and will be useful for researches, users, administrators, developers. Project could be used together or in any combination to solve different research problems. We call the project Security Lab Generator (SLG). It contains four projects (systems): 
+\section{Base Structure}
+We suggest the concept of the project consists of four independent projects. Each project could be used independent and will be useful for researches, users, administrators, developers. Project could be used together or in any combination to solve different research problems. We call the project \myProjectName. 
+It contains four projects (systems): 
 \begin{compactitem}
 \item \myNDS{ } (ND)
 \item \myPLT{ } (PLT)
@@ -226,42 +160,119 @@ As we can see from previous sections there is quite big overhead of research in 
 \begin{figure}[ht!]
 \centering
 %[width=90mm]
-\includegraphics[width=120mm]{slg_structure.png}
-\caption{SLG's systems}
+\includegraphics[width=145mm]{slg_structure.png}
+\caption{Security Lab Generator}
 \label{overflow}
 \end{figure}
- 
- 
-\subsection{\myNDS}
-The purpose of the \myNDS{ }is to provide easy way to design the network including specifying networks, hosts, connections, softwares, user accounts. The system should provide the flexibility providing by IaaS and simplicity providing by PaaS. It the first part of the big ecosystem. The system should provide the capability to export designed network as structured data. For example XML, JSON or other. It could be used independently by system administrator to design the network and collaboration. And also it could be used in combination with others system to perform the whole life cycle flow. As we mentioned in the previous subsection we want to create project for automatization of research. So it is the first step to reach goal. 
 
-Research areas:
+As it was mentioned above the concept supposed that all systems can be independently used. It supposed that must be some specified application programming interface (API) for communication between each other. Also it should provide the web user interface for convenient work. It is important to provide flexibility not only in communication between system, but also between modules inside the systems. It means that most of system must be able to extended by additional modules, functionality written by third-party developers. The main idea is combining any modules, systems, reusing some components to able to build needed custom project for solving different tasks.    
 
 
+We just say that everything must be specified, but we do not talk how. It will be done on the stage of developing the architecture and it is out of scope of the report. So now it does not matter which protocol to use REST, SOAP or other and how to integrate the modules.
 
-\subsection{\myPLT}
-Some system provide the capability to describe the environment and deploy it. But each system has its own language. If you do not think about using different provision providers then there is not problem. But it could be that you will need think about the migration from one provider to other. For example from Amazon Web Service (AWS) to your own server with VMware EXSi. In this case you have to spend a lot of time to running the same environment on your own servers. To automatize the process you would like some tools like Vagrant, but it can not resolve all problems of migration, because you still have to write instruction for Vagrant manually. To overcome the problem of migration and provide flexibility in choosing the provider for deploying the environment, PLT is suggested. 
 
-PLT is a translator like Google Translator, but not for nature languages, but for provision languages. Provision language is a full description of the environment that cloud be used for deploying described environment according to description. Idea PLT is provide so many module as possible for bi-direction translation provision language. The project could be used independently by system administrators for migration network environments from on to other provision provider. But in our case we want to use it in combination with other systems. So we should provide the translation from our network description language to already existing language like Vagrant file or Amazon Cloud Formation or other. So now we have 2 systems ND and PLT. We could design the network, export SLG XML and then translate it into appropriate provision language. 
+\section{\myNDS}
+The purpose of the \myNDS{ }is to provide easy way to design the network including specifying networks, hosts, connections, software, user accounts. The system should provide the flexibility providing by IaaS and simplicity providing by PaaS. It the first part of the big ecosystem. The system should provide the capability to export designed network as structured data. For example XML, JSON or other. It could be used independently by system administrator to design the network and collaboration. And also it can be used in combination with others system to perform the whole life cycle flow. As we mentioned in the previous subsection we want to create project for automation of research. So it is the first step to reach goal. 
 
+On the Figure 2 you can see the network topology of OpenStack. OpenStack is open source IaaS. As many IaaS OpenStack provide functionality to run any instances with any operation systems, creating any network structure. It is very flexible. As result of configuring the network and running the instances we can see the network topology describing the network.  It is quite easy to read. But IaaS does not provide simplicity of designing the network.     
+\begin{figure}[ht!]
+\centering
+%[width=90mm]
+\includegraphics[width=145mm]{openstack_network_topology.png}
+\caption{OpenStack network topology}
+\label{overflow}
+\end{figure}
+
+On the other hand there are PaaS systems such as Jelastic, which admin console is illustrated on Figure 3. PaaS provide simplicity of designing. PaaS usually use already pre-defined network structure for different purposes such as Java applications, PHP, Ruby and so on. In this case administrators mostly do not care about orchestration the network structure, they care about which server to use, which database, needed if the load balancer or not and so on. 
+
+The idea to combine two approaches from IaaS and PaaS to make flexible and simple designer to provide ability to create any complex network with specified hosts and specified installed software. 
      
-Research areas:     
-
-\subsection{\myPS}
-Provision system is used for deploying the environment based on the description. It can accept different different types of provision language and provide provision on different providers: AWS? OpenStack, VmWare, VirtualBox and so on. It PS can directly apply provision language to provider of you PLT service to translate input provision language to appropriate for certain provider and then apply it. In combination of three described system we could design the network, convert to appropriate provision language and apply to certain provider. 
-
-Research areas:
-
-
-\subsection{\myNSA}
-Network system analyzer is the most interesting part of the project, because it is used for making research, gathering data from host, scanning the host, analyze data, making report and applying user scenarios. The system contains two parts: server side and agents. The server side is wrapper of many security analytic tools such as MulVal. All tools need data to analyze them and create reports, attack graph and show some statistics. So server must  know about the whole network structure also gather data from the hosts. The first issue could be solved by passing the SLG XML describing designed network from ND. Already on this step NSA can provide information such attack graph and potential vulnerabilities. But is is not enough. We need information about hosts. For this issue we can use agent. The agent could include different inventory, monitoring, suffering tools to make fully analyzing of the host. Some of possible tools: OVAL SCANNER !!!!. The agent registers in the server and ready to send data to server. The server receive data and depending on the time delegate them to the appropriate analytic tool. The system could get access to other services that could provide useful information for making reports and analyzing data. For example the system could work with Vulnerability Database (VDB). 
-
-Other very important purpose is creating custom user scenarios, send them to agent and agent apply them.     
+\begin{figure}[ht!]
+\centering
+%[width=90mm]
+\includegraphics[width=145mm]{jelastic.png}
+\caption{Jelastic admin console}
+\label{overflow}
+\end{figure}
 
 
-Research areas:
+Research questions:
+\begin{compactitem}
+\item How to fully describe the network structure as XML, JSON or by other language with ability  to use the it as a provision language?
+\item How to specify the principle of network designer for complex structure by combining flexibility IaaS and simplicity PaaS constructor?  
+\end{compactitem}
 
 
+\section{\myPLT}
+Some system provide the capability to describe the environment and deploy it. But each system has its own language. If you do not need to use different provision providers then there is not problem. But it could be that you will need to migrate from one provider to other. For example from Amazon Web Service (AWS) to your own server with VMware EXSi. In this case you have to spend a lot of time to deploy the same environment on your own servers. To automatize the process you would like to use some tools like Vagrant, but it can not resolve all problems of migration, because you still have to write instructions for Vagrant manually. To overcome the problem of migration and provide flexibility in choosing the provider for deploying the environment, we suggest the concept of Provision Language Translator (PLT). 
+
+
+PLT is a translator like Google Translator, but not for nature languages. It is a translator for provision languages. Provision language is a full description of the environment that cloud be used for deploying described environment according to the description. Idea of PLT is to provide so many module as possible for bi-direction translation provision language. The project could be used independently by system administrators for migration network environments from on to other provision provider. But in our case we want to use it in combination with other systems. So we should provide the translation from our network description language to already existing language like Vagrant file or Amazon Cloud Formation or others. So now we have 2 systems ND and PLT. We could design the network, export SLG XML and then translate it into the appropriate provision language. 
+
+\begin{figure}[ht!]
+\centering
+%[width=90mm]
+\includegraphics[width=145mm]{plt.png}
+\caption{Provision language translator}
+\label{overflow}
+\end{figure}
+     
+Research questions:
+\begin{compactitem}
+\item How to convert/translate different provision languages in both direction saving the all structure?
+\end{compactitem}  
+
+\section{\myPS}
+Provision system is used for deploying the environment based on the description. It can accept different types of provision language and provide provision on different providers: AWS, OpenStack, VMware, VirtualBox and so on. Provision system can directly apply provision language to provider or you can use PLT service to translate input provision language to appropriate for certain provider and then apply it. In combination of three described system we could design the network, convert to appropriate provision language and apply to certain provider. 
+
+\begin{figure}[ht!]
+\centering
+%[width=90mm]
+\includegraphics[width=145mm]{ps.png}
+\caption{Provision system}
+\label{overflow}
+\end{figure}
+
+Research questions:
+\begin{compactitem}
+\item How to implement orchestration tool for provision on the different providers? 
+\end{compactitem}
+
+
+\section{\myNSA}
+Network system analyzer is the most interesting part of the project, because it is used for making research, gathering data from host, scanning the hosts, analyze data, making report and applying user scenarios. The system contains two parts: server side and agents. 
+
+The server side is wrapper of many security analytic tools such as MulVal. All tools need data to analyze them and create reports, attack graph and show some statistics. So server must know about the whole network structure also gather data from the hosts. The first issue could be solved by passing the SLG XML describing designed network from Network Designer. Already on this step NSA can provide some information such as an attack graph and potential vulnerabilities. But is is not enough. We need information about hosts. For this issue we can use agent. 
+
+The NSA agent is client side application. The agent could include different inventory, monitoring, suffering tools to make fully analyzing of the host. Some of possible tools: OVAL SCANNER, NESSUSS and others !!!!. The agent registers in the server and ready to send data to server. The server receive data and depending on the data delegates them to the appropriate analytic tool. The system could get access to other services that could provide useful information for making reports and analyzing data. For example the system could work with Vulnerability Database (VDB) or RAIMS???!!!
+
+Other very important purpose is creating custom user scenarios, send them to agent and agent apply them. Firstly the concept implies that users can create some description of user scenarios which must be performed on the host side. User scenarios could be some activities such as login,logout, run service, install software, open connections, create files and so on. The NSA must provide the mechanism of simple way of implementation any user scenarios for any operation system. The scenarios must be packed as cookbook (analogy to cookbooks for Chef). It is implied that we will have the repository with set of pre-defined reusable cookbooks. Any user can create his own cookbook, reuse some repository, include his cookbook to repository and combine any cookbooks. 
+
+The server takes cookbooks with user scenarios and apply them to host by agents that must be installed on the hosts. As it is just concept we do not distinguish agents by purposed, but we can expect that functionality of gathering data and applying cookbooks could be distributed into different application. But any way both of them are agents and they are installed on the hosts.         
+
+\begin{figure}[ht!]
+\centering
+%[width=90mm]
+\includegraphics[width=145mm]{nsa.png}
+\caption{Network Security Analyzer}
+\label{overflow}
+\end{figure}
+
+Research questions:
+\begin{compactitem}
+\item How to collect all information about the host by special agent wrappers different monitoring tools?  
+\item How to normalize collected data to use them for analyzing?  
+\item How to analyze data?
+\item How to create reports according collected data and analyzed data? 
+\item How to applying scenarios to hosts. 
+\item How you describe the user scenarios to be able to reuse them and combine with others?
+\end{compactitem}
+
+\section{Conclusion}
+
+To conclude let's remember the main points. In this report we mentioned some problems of researchers that make overhead of the research. The main overhead is because of the preparation stage including creation the research network environment, configuration the network and hosts, installation software, generating data, simulation some typical events. In the report we suggest the concept of the project that can probably solve some of the problems and overcome in some cases the research overhead. We suggest module structure of the project that implies that the project consists of several independent system. And every system can be used independently by administrators, users, researchers or in combination with others.     
+
+To prove the idea of concept we gave some usecases of using every system and the whole project. As it is research project we consider possible research questions and ares for researching during the developing the system as a prove of the concept. 
 %------------------------------------------------
 
 \section{Methods}
