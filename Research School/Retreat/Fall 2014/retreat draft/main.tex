@@ -1,22 +1,24 @@
 \documentclass[english, inproceedings]{polze}
 
 \begin{document}
+\input{variables}
 
-\author{Tim Felgentreff}
-\group{Software Architecture Group}
-\organisation{Hasso-Plattner-Institut}
-\email{tim.felgentreff@hpi.uni-potsdam.de}
-\event{Fall 2012 Workshop}
+\author{\myAuthor}
+\group{\myGroup}
+\organisation{\myOrganisation}
+\email{\myEmail}
+\event{\myEvent}
 
-\title{Title page full title}
+\title{\myTitle}
 \maketitle
-\title{Short title for running header}
+\title{\myShortTitle}
 
 \input{abstract}
 \input{introduction}
-\input{background}
-\input{solution}
-\input{conclusion}
+\input{part1}
+%\input{background}
+%\input{solution}
+%\input{conclusion}
 
 \bibliography{bibliography}
 \end{document} 
