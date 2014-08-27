@@ -1,8 +1,35 @@
-\begin{abstract}
+%\documentclass{article}
+%\begin{document}
 
-\noindent 
-\large %Font size
-Research in the field of Information Security is always faced with the problem of lack of data or a suitable environment. This problem is not limited to research in the field of information security, but also for other areas. For research in the field of information security - is a big problem. Researchers have to find solutions for generate data, constructing a suitable environment, etc. A lot of affords to start the research. In the report, we consider examples of how we in the security group of the chair "Internet Technologies and Systems" solve similar problems. We consider the typical ways of solving them and consider a prototype project that we could help to simplify the implementation of research.
-%\lipsum[1] % Dummy abstract text
 
-\end{abstract}
+\section{Open Research Cloud}
+
+\subsection{Related Work}
+To perform the research is very important to have the necessary data, resources, the opportunity to work with colleagues from other areas. Academic world understands the importance of the collaboration work. As a result, many countries and universities are taking steps to make research more open. Thereby contributing to an increase in the productivity of scientists and to accelerate progress. There are several examples of creating some kind of Open Research clouds. 
+
+The Open Science Data Cloud (OSDC) is a petabyte scale science cloud for researchers to manage, analyze and share their data and to get easy access to data from other scientists. Currently OSDC hosts about 700 TB of data. Also OSDC has some other projects for collaboration work on cloud. [!? link https://www.ci.uchicago.edu/research-centers/open-science-data-cloud]
+
+The Massachusetts Open Cloud (MOC) is a new public cloud, designed and implemented in Massachusetts as the first "Open Cloud eXchange" (OCX). The Open Cloud Exchange (OCX) is envisioned as a public cloud marketplace in which many stakeholders, rather than just a single provider, participate in 
+implementing and operating the cloud. [!? link http://www.cs.bu.edu/fac/best/res/papers/ic14.pdf]
+
+
+NeCTAR (National eResearch Collaboration Tools and Resources) is a computing resource for all Australian researchers where they can develop and deploy applications and collaborate in a uniform environment with controlled sharing of data. [!? link http://nectar.org.au/]
+
+
+
+\subsection{OpenStack as a basement of Open Research Cloud}
+OpenStack [!? link] is open source software for building private and public clouds. OpenStack is not the first open source software for building clouds. There are also OpenNebula [!? link], Eucalyptus [!? link], Cocaine [!? link], CloudStack [!? link] and others. There are a lot of benchmarks of comparison different cloud software [!? link "http://en.wikipedia.org/wiki/" ] . But why the OpenStack must be chosen to build Open Research Cloud. There are some reasons. First, there are success cases of using OpenStack as a basement for building research clouds such as MOC and NeCTAR. The second, a lot of big industrial companies stay behind OpenStack such as NASA, Rackspace, Ubuntu, HP, IBM and others [ !? link http://www.openstack.org/foundation/companies/]. The third is the huge community. 19 000 people in 143 countries can be wrong. If people and big companies trust OpenStack it means there are reason. The reasons are open source, flexible architecture and service based architecture, plugable service and even more.  
+
+What is Open Research Cloud? It could mean different things just look at Related Works mentioned above. But in any case it makes researches easier. In our case when we speak about Open Research Cloud we mean that it is some Research Infrastructure as a Service with some additional research tools The tools could be used for sharing scientific data, collaborating with other research projects, connection to the other tool by specified API. 
+
+
+
+\subsection{OpenStack at HPI}
+To learn OpenStack and learn how OpenStack could be used as a basement for Open Research Cloud the infrastructure was deployed at HPI servers. The infrastructure includes services: Identity (Keystone), Compute (Nova), Image service (Glance), Networking (Neutron), Block Storage (Cinder), Object Storage (Swift), Dashboard (Horizon), Orchestration (Heat), Telemetry (Ceilometer). The deployment was the first attempt to learn OpenStack. In the brackets are code names of services. The next step will be attempt to make a research by using OpenStack environment. 
+
+
+
+
+
+
+%\end{document} 

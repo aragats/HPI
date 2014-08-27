@@ -1,8 +1,23 @@
-\begin{abstract}
+%\documentclass{article}
+%\begin{document}
 
-\noindent 
-\large %Font size
-Research in the field of Information Security is always faced with the problem of lack of data or a suitable environment. This problem is not limited to research in the field of information security, but also for other areas. For research in the field of information security - is a big problem. Researchers have to find solutions for generate data, constructing a suitable environment, etc. A lot of affords to start the research. In the report, we consider examples of how we in the security group of the chair "Internet Technologies and Systems" solve similar problems. We consider the typical ways of solving them and consider a prototype project that we could help to simplify the implementation of research.
-%\lipsum[1] % Dummy abstract text
 
-\end{abstract}
+\section{Security Lab Generator Based on OpenStack}
+
+\subsection{Security Lab Generator. Overview}
+
+Security Lab Generator (SLG) is the research project that is aimed to configure, deploy, test, monitor, analyze the network environments regarding security issues. [!? link] The project is the combination of other research projects such as Oryx for prototyping the network environment, MulVAL for analyzing the network environment on attack graph, VirtualBox for running virtual machine describing the network. SLG could be used in several use cases, but the main purpose is provide the platform for teaching of network security. For example, it could be used for Capture The Flag (CTF) seminars. The idea of the seminar is that the tutor deploys potentially vulnerable network with vulnerable applications. Students, in turn, are trying to gain access to the network and to the virtual machines using the found vulnerabilities to find flags. The flag is a some label or code. The system should allow not only to deploy the network environment, but also to monitor user activities, find out hacked machines, report on ways of hacking the system. 
+
+The current state of the project does not allow to use it for real seminar. SLG requires implementation of some necessary features. 
+
+
+\subsection{Security Lab Generator based on OpenStack}
+OpenStack is open source Infrastructure as a Service that provides capability to run any complex network environments. The idea of Security Lab based on OpenStack (CloudSLG) is migrate current SLG into the cloud. It will allow to use wide functionality of IaaS in SLG interests. It means that will not need care about how to run, configure the network, how to connect to running instance. It will allow to concentrate to solving more research questions such as analyzing user activities, finding user attack graph, reporting analytic statistic. Also, migration SLG into the cloud could be the first step of making Open Research Cloud.    
+
+
+\subsection{Research Challenges}
+Working 
+
+
+
+%\end{document} 
