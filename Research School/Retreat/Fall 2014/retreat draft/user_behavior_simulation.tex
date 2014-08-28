@@ -1,24 +1,16 @@
-\documentclass{article}
-\usepackage{paralist} % Used for the compactitem environment which makes bullet points with less
-\begin{document}
+%\documentclass[english, inproceedings]{polze}
+%\usepackage{paralist} % Used for the compactitem environment which makes bullet points with less
+%\usepackage{includegraphics} % Images
+%\begin{document}
+
+%\include{variables}
+%\include{paper_header}
 
 
-\section{Deploy test environment}
-Many security network and software analysis research start with preparing the test environment. The test environment is deployed in the most cases as the virtual network with configured hosts, routers, networks and all others resources including users account. The test environment could be deployed on the local computer by using the software for virtualization like the VirtualBox, VmWare Workstation and others or could be deployed on the remote server with installed hypervisor software like VMware vSphere Hypervisor (ESXi).          
-
-The common way to create the developing environment is to do it manually. You have to download image of operation system, install it on the Virtual Machine, configure it, install necessary softwares. The developing environment is usually more complex just one virtual machine, so you have to do the same step several. In some cases you can just clone virtual machine, but you still have to do a lot of manual work.       
-  
-There are some software which can simplify the process of creating the developing/test environment. One of the them is Vagrant. Vagrant allows to create and configure lightweight, reproducible, and portable development environments. The configured environment could be reused. Vagrant project has the relative project which is called VagrantCloud. The project is hosted on the https://vagrantcloud.com. It is some kind of the catalog of prepared environments. The prepared developing environment is called box.  People could share with community their boxes. Everyone could find the appropriate environment and reuse it instead of configuring new one. Vagrant allows to deploy the environment into the local VirtualBox, VMware Workstation, Aamazon Web Service (AWS). It means researchers are quite free in using the platform. The features of the Vagrant are not bound only by running the environment. The application a lot of give capabilities including synchronizing between the host and guest machine, integration with Chef[*], Puppet[*] and other. Learn more on the official website http://www.vagrantup.com/ 
-
-The process of creating the development/test environment can by simplify by cloud providers. Many cloud providers provide capability easy to install and run virtual machine with any operation systems, configure the network and many other features. The most popular is Amazon Web Service (AWS). AWS is Infrastructure-as-a-Service. AWS provides huge amount of service which could solve any problem.  You could combine any infrastructure service to create the certain development environment. I mentioned just AWS, but the market of cloud providers grows extremely so it is possible find any other. As Vagrant AWS also provide capability to save configuration of the development environment, distribute it and reuse.
-
-But we are talking about the researches with security aspects. It means that results and the process of the research in the most cases must secret. In this case it is not possible to use public cloud providers. Here opensource communities come to help us. There si not sense to tell that opensource communities grow extremely. A lot of big IT companies invest into the opensource projects. Many of these opensource projects are widely spread. They are use everywhere. So it does not go past the cloud technologies. There several opensource cloud platform which could be used for creating own IaaS, PaaS and other. Some of them: OpenStack, OpenNebula,  OpenShift Origin and so on. So clouds become private. For us it means that we could create our test/development environments by using flexibility and capability of cloud services. But still there are some problems and overhead of creating the test/development environments. It could be solved by using the PaaS, but PaaS's are usually designed for specific task mostly for running the infrastructure for web applications in Java, PHP, Ruby and so on. No one does provide flexible platform as a service based on all functionality of infrastructure as a service. We would like to call it Platform as a Infrastructure (PaaI). Jeslastic[*] uses this definition for describing its service, but they include other meaning into this definition.     
-
-        
 
 
 \section{Simulation of users behaviors}
-There is task to analyses the behavior of users to predict attacks or abnormal behavior. There are some algorithms for Attack Prediction based on Machine Learning [http://www.csjournals.com/IJCSC/PDF1-2/51..pdf]. The algorithms could be used for research purposes, in this task the big problem is lack of data. The customer do not want and can not provide Active Directory log files which contains information about user activities. We have to start research since writing the script for simulation user behaviors. 
+There is task to analyses the behavior of users to predict attacks or abnormal behavior. There are some algorithms for Attack Prediction based on Machine Learning [http://www.csjournals.com/IJCSC/PDF1-2/51..pdf]. The algorithms could be used for research purposes, in this task the big problem is lack of data. The lack of data force to write tools for generating data by simulation of user behaviors. 
 
 The Scenario in our case is the description of the network infrastructure, information about users, and scenario of their behavior. To analysis user behaviors by predict algorithms we must have normal scenario and abnormal scenario.  
   
@@ -28,19 +20,19 @@ Description of a network:
 \begin{compactitem}
 \item 4 computers.
 \item Domain controller. 
-\item Wiki Server.
-\item DB server.
+\item Wiki server.
+\item Database (DB) server.
 \end{compactitem}
 Users: 
 \begin{compactitem}
+\item Ivanov
 \item Petrov
-\item Ivanov 
 \item Smirnov
 \item Admin
 \end{compactitem}
      
 \subsection{Normal scenario}
-Figure 1. Usually ordinal users login to their computers. They do it several times per day. All users and admin have an access to Wiki, but Ivanov usually do not use it. Admin usually login to Domain Controller. Other users do not do it, because their do not have an access. Ivanov does not login to wiki, but he has an access. Others users do it. Ivanov sometimes login to DB Server. Others users do not do it, but they have an access.
+All users has an access to their computer, Wiki server and Database server. Admin has an access to any computer such as user's computers, Wiki server, DB server, Domain Controller and his own computer.  In case of normal scenario ordinal users usually login to their computers by their credentials. They do it several times per day. Petrov and Smirnov during the workday go to Wiki server. Ivanov does not go there despite that he has an access. As was mentioned above all users  have access to DB Serve, but nobody uses it. Admin usually login to his computer and during the workday he connects to Domain Controller, DB server and Wiki server several time. Is is clear that other user do not connect to Domain Controller because they do not have an access. The visualized description of normal behavior you can see on the Figure 1: Normal scenario. All black lines show  accesses to computers for particular users. The black solid lines illustrate accesses which are used by users. The black dash lines show accesses which are not used by users in the normal behavior despite that they have an access. 
 \begin{figure}[ht!]
 \centering
 %[width=90mm]
@@ -50,8 +42,7 @@ Figure 1. Usually ordinal users login to their computers. They do it several tim
 \end{figure}
 
 \subsection{Abnormal scenario}
-Figure 2. Ivanov logged to wiki. He usually does not do it, but he has an access and other users do it every day. Petrov logged to DB server. He has an access, but according to the normal behavior only Ivanov uses the DB server. So it could be abnormal behavior.  
-
+The abnormal scenario is some kind of scenario that differs from normal scenario by some unusual but acceptable behaviors. In our case abnormal scenario includes additional user behaviors. The first first abnormal behavior is that user Ivanov uses Wiki server. Is is abnormal, but not so much suspicious, because other users use it every day. The second abnormal behavior is that user Petrov started to use DB server, but in normal sceanrion nobody use it. This user  behavior is more suspicious and could be determine as an attempt to hack the system. The abnormal scenario is illustrated on the Figure 2: Abnormal scenario. The black solid line show normal user behaviors. The yellow solid line shows the first abnormal behavior connection to Wiki server. The red solid line show the second abnormal behavior that is suspicious could be determined as an attempt to hack the system. 
 \begin{figure}[ht!]
 \centering
 %[width=90mm]
@@ -61,10 +52,12 @@ Figure 2. Ivanov logged to wiki. He usually does not do it, but he has an access
 \end{figure}
 
 \subsection{Implementation}
-The network is deployed and configured manually on the FutureSOC server with WMware ESXi. The script for the simulation users activities is written in Python with using additional libraries for connecting to Virtual Machines by VNC and making screenshots. There are 3 csv files for describing the whole scenario. The first of them (computers.csv) describe the the all computers which participate in the scenario. It contains the information about computer identifier, IP, port, VNC password and type of operation system(OS).
-The second (scenarios.csv) describes the main user activity. The main user activity means the connection to the local computer. The files contains computer identifier to connect, username, password, session time, count of sessions and identifier of inner scenario.
-The third (inner-scenarios.csv) describes the user activity after login to the local computer. For example, it could describe the connection to the wiki, the DB server or Domain Controller or even connection to another user computer.  
-There are two sets of csv files. The first set is used to perform normal scenario and the second is used to perform abnormal scenario 	
+The first part of the implementation is the deployment and configuration the test environments. We used FutureSOC server, because it has needed computer resources. First of all, the private network was created to isolate our Virtual Machines (VMs) from others VMs on FutureSOC server with WMware ESXi. Then all machines was deployed and configured as described in the section "Environment description". We used Windows Server 2012 for Domain controller, Windows Server 2003 for Wiki server and DB server, Windows 7 Pro for user computers including admin's computer. 
+
+The simulation of user behaviors is implemented by programming language Python with additional libraries. We call the python script for simulation of user behaviors as a simulator. To connect from simulator to VMs the virtual Network Computing (VNC) protocol was chose, because ESXi supports the VNC protocol. But it is needed to enable the VNC features on ESXi server and specified port for a vnc connection for each VM. To connect to VM by VNC we used vncdotool library ([!? link  https://github.com/sibson/vncdotool]). The library supports not only connecting to VMs by VNC, but also it can make screeshots of the VM desktop. The feature of making sreenshot of the VM desktop is used for checking a state of the VM.  The simulator describe the algorithm of user behavior for connection to VM, login into OS, run RDP connection to Wiki or DB server. We predefined some common state to determine the current state of VM during the simulation by comprising histograms of images. By comparison images and determine the current state of VM we can specify activities that are needed to perform. For example, if after comparison we determined that the state is "Logoff state" then we need pass CTL+ALT+DELETE command to VM to enable "Logon" state. In turn, in "Logon" state we can type username and password and press enter to enter to into the VM. The connection from the user computer to DB or Wiki server is implemented by running PowerShell Script included into VM. The script could take parameters and It means that we use one script for connection to both server by specifying certain ip address. The script establishes the RDP connection. 
+
+In two above paragraph we described how we deploy, configure and connect to server. In this paragraph we describe how we describe the scenario of user behaviors. The description of scenarios is stored in csv files. The are 3 csv files. The first of them (computers.csv) describe the all computers which participate in the scenario. It contains the information about computer identifier, IP address, port specified for VNC connection, VNC password and type of operation system(OS).
+The second files is called scenarios.csv. It describes the main user activities. The main user activity means the connection to the user computer. The file contains a computer ID referring to id in computer.csv file, username, password, session time, count of sessions and identifier of inner scenario. The third files is called inner-scenarios.csv. It describes the user activity after login into a user computer. For example, it could describe the connection to the wiki, the DB server or Domain controller or even connection to another user computer. There are two sets of csv files. The first set is used to perform normal scenario and the second is used to perform abnormal scenario 	
 accordingly. Normal scenario takes about 3,5 hours and abnormal scenario takes about 5,5 hours.
  
-\end{document} 
+%\end{document} 
