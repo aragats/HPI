@@ -1,12 +1,24 @@
-%\documentclass{article}
-%\begin{document}
+\documentclass{article}
+\usepackage{paralist} 
+\begin{document}
 
 
 \section{Security Lab Generator}
-
+On the past semester I devote some time on learning ad deploying Security Lab Generator.
+Security Lab Generator (SLG) is the research project that is aimed to configure, deploy, test, monitor, analyze the network environments regarding security issues. [?! link] The report contains the overview of the project, the deployment process and some ideas about project.
 \subsection{Overview}
+To review the SLG project firstly determine some definitions that will be used in this section of report.
 
-Security Lab Generator (SLG) is the research project that is aimed to configure, deploy, test, monitor, analyze the network environments regarding security issues. [!? link] The project is the combination of other research projects such as Oryx for prototyping the network environment, MulVAL for analyzing the network environment on attack graph, VirtualBox for running virtual machine describing the network. SLG could be used in several use cases, but the main purpose is provide the platform for teaching of network security. For example, it could be used for Capture The Flag (CTF) seminars. The idea of the seminar is that the tutor deploys potentially vulnerable network with vulnerable applications. Students, in turn, are trying to gain access to the network and to the virtual machines using the found vulnerabilities to find flags. The flag is a some label or code. The system should allow not only to deploy the network environment, but also to monitor user activities, find out hacked machines, report on ways of hacking the system. 
+\begin{compactitem}
+\item Scenario - a description of a computer network as and creating an attack graph. 
+\item Attack graph - other view of scenario describing possible attack graph for certain network environment regarding on an attacker location and a hacking target.   
+\item Experiment - provision a scenario. Creating a network with all needed hosts, softwares according to the scenario on the Provisioning Sever.
+\item Provisioning Sever - a server for running virtual machines. Provision server in the current case is VirtualBox.
+\end{compactitem}
+
+As was mentioned above the project provide functionality to prototype, configure, deploy, test, monitor, analyze the network environments regarding security issues. The project is the combination of other research projects such as Oryx for prototyping the network environment, MulVAL for analyzing the network environment on attack graph, VirtualBox for running virtual machine describing the network. SLG is written written in Java with Groovy Grail framework, uses Tomcat server, MySql database. The Oryx which is used by SLG for protoryping the network also uses some additional components such PostgreSQL database and PLPython library. The MulVAL is a logic-based enterprise network security analyzer. It is used for creating attack graph based on prototyped scenario. The attack graph could be display as a image with with relations and also as s XML files. The MulVAL requires additional modules such as XSB - Logic Programming and Deductive Database system and GraphViz – Graph Visualization Software.
+
+  SLG could be used in several use cases, but the main purpose is provide the platform for teaching of network security. For example, it could be used for Capture The Flag (CTF) seminars. The idea of the seminar is that the tutor deploys potentially vulnerable network with vulnerable applications. Students, in turn, are trying to gain access to the network and to the virtual machines using the found vulnerabilities to find flags. The flag is a some label or code. The SLG should allow not only to deploy the network environment, but also to monitor user activities, find out hacked machines, report on ways of hacking the system. 
 
 %The current state of the project does not allow to use it for real seminar. SLG requires %implementation of some necessary features. 
 
@@ -16,4 +28,4 @@ OpenStack is open source Infrastructure as a Service that provides capability to
 
 
 
-%\end{document} 
+\end{document} 
