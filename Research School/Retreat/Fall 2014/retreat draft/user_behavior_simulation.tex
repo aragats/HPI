@@ -1,16 +1,17 @@
 \section{Simulation of users behaviors}
-On past semester the Security Group of the chair "Internet Technologies and Systems" worked on the project "Machine Learning for Security Analytics powered by SAP HANA". Within this project the group aim to implement and test the machine learning approach for security analytics based on SAP HANA. Under this approach the group focuses on the analysis of user events, particularly login and logout events. The approach focused on simple  The algorithms could be used for research purposes, in this task the big problem is lack of data. The lack of data force to write tools for generating data by simulation of user behaviors. 
-
-The Scenario in our case is the description of the network infrastructure, information about users, and scenario of their behavior. To analysis user behaviors by predict algorithms we must have normal scenario and abnormal scenario.  
+On past semester the Security Group of the chair "Internet Technologies and Systems" worked on the project "Machine Learning for Security Analytics powered by SAP HANA". Within this project the group aim to implement and test the machine learning approach for security analytics based on SAP HANA. Under this approach the group focuses on the analysis of user events, particularly login and logout events. For testing of machine learning analytics module, we have generated several
+simple brute-force attacks. As a result the project report was written that contains the results of applying machine learning approach, analyzing of performance and other relevant information [?!? link to the report]. Also it contains the proposal of future works. And on of them was proposal to try machine learning approach powered on SAP HANA for security Analytics with more sophisticated cases. But the main problem of trying the approach on sophisticated cases is lack of data. The lack of data is common problem of academic world. Mostly industrial companies has such data but they do not share them because of some obviously reasons such as security and privacy. At least login and logout events contain information about users that can not be passed to third parties. For the reason we faced with task to implement a tool to simulate particular user scenarios, user behaviors and as result generate needed data for future analyzing. 
+The Scenario in our case is the description of the network infrastructure, information about users and description of their behavior. To analysis user behaviors by predict algorithms of Machine Learning we must have normal scenario and abnormal scenario.  
   
 \subsection{Environment description}
+We start with designing the network and description of the network. It contains the list of computers, which operations systems are installed, purpose of each machine and list of users with their roles. To set up the network we use FutureSOC server with installed ESXi. Firstly, on the ESXi network we create the VLAN network to isolate of virtual machines from others hosted on the same ESXi server. The main node of the network is Domain controller (DC). As a Domain controller the Widows Sever 2013 was used. Additionally we added two virtual machines with Windows Server 2013 that are used as a Wiki server and Database server accordingly. Also the network contains 4 user virtual machines with Windows 7 64 bit Pro. To complete the installation  we add 4 users and 1 of them is Admin user who has access to any machines. All described information is summarized into two compacted list below. 
 
 Description of a network:
 \begin{compactitem}
-\item 4 computers.
-\item Domain controller. 
-\item Wiki server.
-\item Database (DB) server.
+\item 4 user computers with Windows 7 64-bit Pro.
+\item Domain controller with Widows Server 2012.
+\item Wiki server with Windows Server 2013.
+\item Database (DB) server with Windows Server 2013.
 \end{compactitem}
 Users: 
 \begin{compactitem}
