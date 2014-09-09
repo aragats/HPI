@@ -5,7 +5,7 @@
 
 
 \section{Security Lab Generator}
-Another very important issue for research in security analytics and network security areas is providing a test network environment. To answer on the question how to automatize a process of providing a potentially vulnerable test network environments, I devoted some time on learning and deploying the project called Security Lab Generator. Security Lab Generator (SLG) is the research project that is aimed to configure, deploy, monitor and analyze the network environments regarding security issues. The report contains an overview of the project, an overview of third-party components used in the SLG, ideas about use cases and proposals how SLG could be used for solving the issue.
+Another very important issue for research in security analytics and network security areas is providing a test network environment. To answer on the question, how to automatize a process of providing a potentially vulnerable test network environments, I devoted some time on learning and deploying the project called Security Lab Generator. Security Lab Generator (SLG) is the research project that is aimed to configure, deploy, monitor and analyze the network environments regarding security issues. The report contains an overview of the project, an overview of third-party components used in the SLG, ideas about use cases and proposals how SLG could be used for solving the issue.
 
 \subsection{Overview}
 
@@ -36,10 +36,10 @@ After prototyping the network, specifying each nodes and viewing the attack grap
 
 
 SLG can be used in multiple use cases, but the main goal is to provide the platform for teaching and study of network security issues and the creation testbeds for research in security analytics and network security areas. 
-As the platform for teaching SLG can be used for Capture The Flag (CTF) seminars. The idea of the seminar is that the tutor deploys a potentially vulnerable network with vulnerable applications. Students, in turn, are trying to gain access to the network and virtual machines using found vulnerabilities to find flags. The flag is some label or code. SLG should provide capability not only to deploy the network environment, but also to monitor user activities, find out compromised machines, make a report on ways of hacking the system. But these features do not implemented yet.  They are will be research challenges in the scope of the topic.
+As the platform for teaching SLG can be used for Capture the Flag (CTF) seminars. The idea of the seminar is that the tutor deploys a potentially vulnerable network with vulnerable applications. Students, in turn, are trying to gain access to the network and virtual machines using found vulnerabilities to find flags. The flag is some label or code. SLG should provide capability not only to deploy the network environment, but also to monitor user activities, find out compromised machines, make a report on ways of hacking the system. But these features do not implemented yet.  They are will be research challenges in the scope of the topic.
   
   
-In the this section we just learned Security Lab Generator. On the next section we will introduce the OpenStack technology and the proposal of migrating SLG on the Cloud.
+In this section we just learned Security Lab Generator. On the next section we will introduce the OpenStack technology and the proposal of migrating SLG on the cloud.
  %"4.4 Security Lab Generator based on OpenStack". 
 
 
@@ -86,7 +86,7 @@ The sections just cover basic information about OpenStack. To learn more please 
 
 
 \subsection{Security Lab Generator based on OpenStack}
-The idea of Security Lab based on OpenStack (CloudSLG) is migrating the current SLG project on the cloud. Firstly, it will allow to use wide functionality of on IaaS in SLG interests. It means that we will not need care about how to run, configure the network, how to connect to running instances. Secondly, it will push forward our goal to automate the creation of testbeds for research in security analytics and network security areas. Thirdly, it will allow to concentrate in solving more research questions such as analyzing user activities, finding user attack graphs, reporting analytic statistics. To migrate SLG on the cloud and automate the testbed creation some challenges must be solved. The first challenge is how to convert describing the network scenario xml (SLG XML) into the CloudFormation language which is used in OpenStack as well as in Amazon Web Service for running a network stack. The second challenge is how to provide the automatization of creating a specific image with vulnerable software applications. !? others.  
+The idea of Security Lab based on OpenStack (CloudSLG) is migrating the current SLG project on the cloud. Firstly, it will allow to use wide functionality of on IaaS in SLG interests. It means that we will not need care about how to run, configure the network, how to connect to running instances. Secondly, it will push forward our goal to automate the creation of testbeds for research in security analytics and network security areas. Thirdly, it will allow to concentrate in solving more research questions such as analyzing user activities, finding user attack graphs, reporting analytic statistics. To migrate SLG on the cloud and automate the testbed creation, some challenges must be solved. The first challenge is how to convert describing the network scenario xml (SLG XML) into the CloudFormation language which is used in OpenStack as well as in Amazon Web Service for running a network stack. The second challenge is how to provide the automation of creating specific images with vulnerable software applications. !? others.  
 
 
 
