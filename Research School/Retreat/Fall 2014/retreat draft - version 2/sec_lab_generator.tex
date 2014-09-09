@@ -26,7 +26,7 @@ To review the SLG project, firstly we define some definitions that will be used 
 \label{overflow}
 \end{figure} 
 
-The SLG project uses additional projects such as Oryx for prototyping the network environment, MulVAL for analyzing the network environment by creating attack graphs and VirtualBox for running virtual machines. SLG is written written on the java programming language with the grails framework. SLG uses the Tomcat server and the MySql database. Oryx uses some additional components such as the PostgreSQL database and the plpython library. MulVAL is a logic-based enterprise network security analyzer. It is used for creating an attack graph based on the prototyped scenario. The attack graph can be represented as an image with relations, as well as an XML file. MulVAL requires additional modules such as XSB - a logic programming and deductive database system and GraphViz - a graph visualization software. 
+The SLG project uses additional projects such as Oryx [2] for prototyping the network environment, MulVAL [3] for analyzing the network environment by creating attack graphs and VirtualBox for running virtual machines. SLG is written written on the java programming language with the grails framework. SLG uses the Tomcat server and the MySql database. Oryx uses some additional components such as the PostgreSQL database and the PLPython library[4]. MulVAL is a logic-based enterprise network security analyzer. It is used for creating an attack graph based on the prototyped scenario. The attack graph can be represented as an image with relations, as well as an XML file. MulVAL requires additional modules such as XSB [5] - a logic programming and deductive database system and GraphViz [6] - a graph visualization software. 
 
 The important parts of SLG are image pool and program pool components. The image pool is the container of prepared images of operations systems which can be used for deploying virtual machines. The program pool is the container of software programs that can be used for installing on virtual machines. Any new images and programs can be added to the pools.
 
@@ -50,7 +50,7 @@ In this section we just learned Security Lab Generator. On the next section we w
 
 
 \subsection{OpenStack at HPI}
-OpenStack is open source Infrastructure as a Service that provides capability to run any complex network environments. To learn OpenStack and learn how OpenStack could be used as a basement for SLG the infrastructure was deployed on the HPI server with installed ESXi. The infrastructure includes services: Identity (Keystone), Compute (Nova), Image service (Glance), Networking (Neutron), Block Storage (Cinder), Object Storage (Swift), Dashboard (Horizon), Orchestration (Heat), Telemetry (Ceilometer). In the brackets are code names of services. On the Figure 5 you can see all VMs that are used for deploying OpenStack services. Theoretical, all services could be deployed on one VM and even there is a tool for that called DevStack\footnote{DevStack. http://devstack.org.}. But it is not option for learning or providing the basement for SLG. The Icehouse version of OpenStack and Ubuntu operation system were used for the deployment of OpenStack.  
+OpenStack is open source Infrastructure as a Service that provides capability to run any complex network environments [7]. To learn OpenStack and learn how OpenStack could be used as a basement for SLG the infrastructure was deployed on the HPI server with installed ESXi. The infrastructure includes services: Identity (Keystone), Compute (Nova), Image service (Glance), Networking (Neutron), Block Storage (Cinder), Object Storage (Swift), Dashboard (Horizon), Orchestration (Heat), Telemetry (Ceilometer). In the brackets are code names of services. On the Figure 5 you can see all VMs that are used for deploying OpenStack services. Theoretical, all services could be deployed on one VM and even there is a tool for that called DevStack\footnote{DevStack. http://devstack.org.}. But it is not option for learning or providing the basement for SLG. The Icehouse version of OpenStack and Ubuntu operation system were used for the deployment of OpenStack.  
 
 \begin{figure}[ht!]
 \centering
@@ -60,7 +60,7 @@ OpenStack is open source Infrastructure as a Service that provides capability to
 \label{overflow}
 \end{figure}
 
-The Figure 6 shows the relations between services. The Figure 7 shows the three-node architecture and which services and components nodes contain. The three-node  architecture uses three networks. The external interface is the interface that has access to the Internet. In our case is the network of ESXi server. The management interface is the interface of the network where OpenStack nodes are located. And the instance tunnels network is the network inside which all VMs with their network will be created. 
+The Figure 6 shows the relations between services. The Figure 7 shows the three-node architecture and which services and components nodes contain. The three-node  architecture uses three networks. The external interface is the interface that has access to the Internet. In our case is the network of ESXi server. The management interface is the interface of the network where OpenStack nodes are located. And the instance tunnels network is the network inside which all VMs with their networks will be created. 
 
 
 
@@ -82,7 +82,7 @@ The Figure 6 shows the relations between services. The Figure 7 shows the three-
 \label{overflow}
 \end{figure}
 
-The sections just cover basic information about OpenStack. To learn more please visit official web site [5]. On the web site you can find all needed information about OpenStack, each service, installation documentation and other relevant information. 
+The sections just cover basic information about OpenStack. To learn more please visit official web site [7]. On the web site you can find all needed information about OpenStack, each service, installation documentation and other relevant information. 
 
 
 \subsection{Security Lab Generator based on OpenStack}
