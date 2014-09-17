@@ -1,0 +1,94 @@
+%\documentclass{article}
+%\usepackage{paralist} 
+%\usepackage{graphicx}
+%\begin{document}
+
+
+\section{Security Lab Generator}
+Another very important issue for research in security analytics and network security areas is providing a test network environment. To answer on the question, how to automatize a process of providing a potentially vulnerable test network environments, I devoted some time on learning and deploying the project called Security Lab Generator. Security Lab Generator (SLG) is a research project that is aimed to configure, deploy, monitor and analyze the network environments regarding security issues. The report contains an overview of the project, an overview of third-party components used in the SLG, ideas about use cases and proposals how SLG could be used for solving the issue.
+
+\subsection{Overview}
+
+To review the SLG project, we define some definitions that will be used in this section. 
+
+\begin{compactitem}
+\item Scenario - a description of the computer network. 
+\item Attack graph - another view of the scenario that describes a possible attack graph for the certain network environment regarding on the location of the attacker and the hacking target.   
+\item Experiment - creating a network with all needed hosts and software applications according to the scenario.
+\item Provision server - a server for running virtual machines on it. In the current case, the provision server is VirtualBox.
+\end{compactitem}
+
+\begin{figure}[ht!]
+\centering
+%[width=90mm]
+\includegraphics[width=\textwidth]{slg.png}
+\caption{SLG}
+\label{overflow}
+\end{figure} 
+
+The SLG project uses additional projects such as Oryx [2] for prototyping the network environment, MulVAL [3] for analyzing the network environment by creating attack graphs and VirtualBox for running virtual machines. SLG is written on the java programming language with the grails framework. SLG uses the Tomcat server and the MySql database. Oryx uses some additional components such as the PostgreSQL database and the PLPython library[4]. MulVAL is a logic-based enterprise network security analyzer. It is used for creating an attack graph based on the prototyped scenario. The attack graph can be represented as an image with relations, as well as a xml file. MulVAL requires additional modules such as XSB [5] - a logic programming and deductive database system and GraphViz [6] - a graph visualization software. 
+
+The important parts of SLG are image pool and program pool components. The image pool is the container of prepared images of operations systems which can be used for deploying virtual machines. The program pool is the container of software programs that can be used for installing on virtual machines. Any new image and the program can be added to the pools.
+
+SLG uses the Oryx application for prototyping the network. You can see the user interface of SLG with the open Oryx editor on Figure 4. The result of prototyping can be exported as json or xml format, which describes the network scenario. The SLG XML can be converted to the input xml suitable for use in MulVAL. 
+
+After prototyping the network, specifying each nodes and viewing the attack graph you can run the experiment. The process of running the experiment includes the creation of virtual machines with operating systems, the installation of software applications and the configuration of the network. After completion of the experiment, all resources will be installed and configured on VirtualBox. SLG provides capability to connect to each virtual machine from the web interface. 
+
+
+SLG can be used in multiple use cases, but the main goal is to provide the platform for teaching and study of network security issues and the creation testbeds for research in security analytics and network security areas. 
+As a platform for teaching SLG can be used for Capture the Flag (CTF) seminars. The idea of the seminar is that the tutor deploys a potentially vulnerable network with vulnerable applications. Students, in turn, are trying to gain access to the network and virtual machines using found vulnerabilities to find flags. The flag is some label or code. SLG should provide capability not only to deploy the network environment, but also to monitor user activities, find out compromised machines, make a report on ways of hacking the system. But these features are not implemented yet.  They are will be research challenges in the scope of the topic.
+  
+  
+In this section we just learned Security Lab Generator. On the next section we will introduce the OpenStack technology and the proposal of migrating SLG on the cloud.
+ %"4.4 Security Lab Generator based on OpenStack". 
+
+
+ 
+
+%The current state of the project does not allow to use it for real seminar. SLG requires %implementation of some necessary features. 
+
+
+
+\subsection{OpenStack at HPI}
+OpenStack is a free and open-source infrastructure as a service that provides capability to run any complex network environments [7]. To learn OpenStack and learn how OpenStack could be used as a basement for SLG, the infrastructure was deployed on the HPI server with installed VMware ESXi. The deployed infrastructure includes several services: Identity (Keystone), Compute (Nova), Image service (Glance), Networking (Neutron), Block Storage (Cinder), Object Storage (Swift), Dashboard (Horizon), Orchestration (Heat), Telemetry (Ceilometer). In the brackets are code names of services. On the Figure 5 you can see all VMs that were used for deploying OpenStack services. Theoretical, all services could be deployed on one VM and even there is a tool for that called DevStack\footnote{DevStack. http://devstack.org.}. But it is not option for learning or providing the basement for SLG. The Icehouse version of OpenStack and Ubuntu operation system were used for the deployment of OpenStack.  
+
+\begin{figure}[ht!]
+\centering
+%[width=90mm]
+\includegraphics{openstack_tree.png}
+\caption{OpenStack nodes}
+\label{overflow}
+\end{figure}
+
+The Figure 6 shows relations between services. The Figure 7 shows the three-node architecture and which services and components nodes contain. The three-node  architecture uses three networks. The external network is a network segment typically used for instance Internet access. The management network is a network segment used for administration, not accessible to the public Internet. The instance tunnels network is a network segment used for instance traffic tunnels between compute nodes and the network node.
+
+
+
+
+
+\begin{figure}[ht!]
+\centering
+%[width=90mm]
+\includegraphics[width=\textwidth]{openstack_conceptual_architecture.png}
+\caption{OpenStack conceptual architecture}
+\label{overflow}
+\end{figure}
+
+
+\begin{figure}[ht!]
+\centering
+%[width=90mm]
+\includegraphics[width=\textwidth]{openstack_architecture.png}
+\caption{OpenStack architecture}
+\label{overflow}
+\end{figure}
+
+The sections just cover basic information about OpenStack. To learn more, please visit official web site [7]. On the official web site you can find all needed information about OpenStack, each service, the installation documentation and other relevant information. 
+
+
+\subsection{Security Lab Generator based on OpenStack}
+The idea of Security Lab based on OpenStack (CloudSLG) is the migration of the current SLG project on the cloud. Firstly, it will allow to use the wide functionality of the IaaS in the interests of SLG. It means that we will not need care about how to create, set up the network, how to connect to running instances. Secondly, it will push forward our goal to automate the creation of testbeds for research in security analytics and network security areas. Thirdly, it will allow to concentrate on solving more research questions such as analyzing user activities, finding user's attack graphs, reporting analytic statistics. To migrate SLG on the cloud and automate the testbed creation, some challenges must be solved. The first challenge is how to convert the SLG XML into the CloudFormation\footnote{CloudFormation. http://aws.amazon.com/cloudformation} language which is used in OpenStack as well as in Amazon Web Service for running a network stack. The second challenge is how to provide the automation of creating specific images with vulnerable software applications.
+
+
+
+%\end{document} 
