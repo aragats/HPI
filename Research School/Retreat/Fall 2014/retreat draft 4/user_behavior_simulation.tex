@@ -60,6 +60,27 @@ In this paragraph, we show how we described the scenario of user behavior. The s
 The second file is called scenarios.csv. It describes main the user activity that is the connection to the client computer. The file contains the computer identifier referring to the identifier in the computer.csv file, the username, the password, the session time, the count of sessions and the identifier referring to the identifier in the inner-scenarios.csv file. The third file is called inner-scenarios.csv describes the actions of users after logging into the client computer. For example, it can describe the connection to the wiki server, database server or domain controller or even the connection to another client computer. The file contains the identifier, the host, the username, the password and the session time. There are two sets of csv files. The first set is used to perform the normal scenario and the second is used to perform the abnormal scenario, respectively. The described relations between csv files are illustrated on the Figure 3.
  	
 
+\begin{tabular}{ |l|l|l| }
+%\hline
+%\multicolumn{3}{ |c| }{Team sheet} \\
+\hline
+Goalkeeper & GK & Paul Robinson \\ \hline
+\multirow{4}{*}{Defenders} & LB & Lucus Radebe \\
+ & DC & Michael Duburry \\
+ & DC & Dominic Matteo \\
+ & RB & Didier Domi \\ \hline
+\multirow{3}{*}{Midfielders} & MC & David Batty \\
+ & MC & Eirik Bakke \\
+ & MC & Jody Morris \\ \hline
+Forward & FW & Jamie McMaster \\ \hline
+\multirow{2}{*}{Strikers} & ST & Alan Smith \\
+ & ST & Mark Viduka \\
+\hline
+\end{tabular}
+
+
+
+
 
 
 %The normal scenario takes about 3,5 hours with 41 login and logout events into client computers and 25 RDP connections to the wiki and database servers. The abnormal scenario takes about 5,5 hours with 45 login and logout events to client computers and 34 RDP connections to the wiki and database servers.
