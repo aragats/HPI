@@ -32,7 +32,7 @@ In our configuration, all users have access to client computers, the wiki server
 \centering
 %[width=90mm]
 %[width=\textwidth]
-\includegraphics[width=0.7\textwidth]{scenario_normal.png}
+\includegraphics[width=0.8\textwidth]{scenario_normal.png}
 \caption{Normal scenario}
 \label{overflow}
 \end{figure}
@@ -42,7 +42,7 @@ The abnormal scenario is the scenario that differs from the normal scenario by s
 \begin{figure}[ht!]
 \centering
 %[width=90mm]
-\includegraphics[width=0.7\textwidth]{scenario_abnormal.png}
+\includegraphics[width=0.8\textwidth]{scenario_abnormal.png}
 \caption{Abnormal scenario}
 \label{overflow}
 \end{figure}
@@ -53,7 +53,7 @@ The first part of the implementation is the deployment and the configuration of 
 \begin{figure}[ht!]
 \centering
 %[width=90mm]
-\includegraphics[width=0.7\textwidth]{simulator_architecture.png}
+\includegraphics[width=0.8\textwidth]{simulator_architecture.png}
 \caption{Simulator's architecture}
 \label{overflow}
 \end{figure}
@@ -63,7 +63,7 @@ The architecture of the simulator is illustrated on the Figure 3. This simulatio
 \begin{figure}[ht!]
 \centering
 %[width=90mm]
-\includegraphics[width=0.7\textwidth]{scenario_relations.png}
+\includegraphics[width=0.8\textwidth]{scenario_relations.png}
 \caption{Scenario relations}
 \label{overflow}
 \end{figure}
@@ -73,6 +73,14 @@ The architecture of the simulator is illustrated on the Figure 3. This simulatio
 In this paragraph, we show how we described the scenario of user behavior. The scenario descriptions are stored in csv files. There are three csv files. The first of them is called computers.csv. It describes all computers that are involved in scenarios and it contains the information about the computer identifier, the IP address or the host, the VNC port, the VNC password and the type of operation system.
 The second file is called scenarios.csv. It describes main the user activity that is the connection to the client computer. The file contains the computer identifier referring to the identifier in the computer.csv file, the username, the password, the session time, the count of sessions and the identifier referring to the identifier in the inner-scenarios.csv file. The third file is called inner-scenarios.csv describes the actions of users after logging into the client computer. For example, it can describe the connection to the wiki server, database server or domain controller or even the connection to another client computer. The file contains the identifier, the host, the username, the password and the session time. There are two sets of csv files. The first set is used to perform the normal scenario and the second is used to perform the abnormal scenario, respectively. The described relations between csv files are illustrated on the Figure 4.
  	
+ 	
+\begin{figure}[ht!]
+\centering
+%[width=90mm]
+\includegraphics[width=0.8\textwidth]{scenario_relations.png}
+\caption{Scenario relations}
+\label{overflow}
+\end{figure}
 
 \begin{tabular}{ |l|l|l| }
 %\hline
