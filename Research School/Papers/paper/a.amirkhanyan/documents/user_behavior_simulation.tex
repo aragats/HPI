@@ -1,0 +1,130 @@
+\section{Preparing testbed data to analytics}
+In the past semester the IT security team of the chair "Internet Technologies and Systems" worked on the project "Machine Learning for Security Analytics powered by SAP HANA". Within this project the team aimed to implement and test the machine learning approach for security analytics based on SAP HANA. Under this approach the team focused on the analysis of user events, particularly login and logout events. To test the machine learning analytics module, we have generated several simple brute-force attacks. Also, there was the idea to try the machine learning approach powered on SAP HANA for security analytics with more sophisticated cases. But the main problem of trying the approach with sophisticated cases is the lack of data. As I mentioned in the introduction section, mostly only industrial companies have such data in needed amount, but they do not share them because of security and privacy reasons. For example, login and logout events contain information about users and this information cannot be passed to third parties. I was faced with the task to set up a test network environment and implement a tool to simulate particular user scenarios, user behavior, and as a result, generate necessary data for further analysis. This simulation tool must provide capability to simulate normal and abnormal scenarios to be able to analyze user behavior by the machine learning approach to detect anomalies.  
+
+Challenges to create such testbed are setting up the domain controller of enterprise or campus level, creating large amount of users, generating random user activities and designing a model of user behavior, especially abnormal behavior.
+  
+% with Windows Active Directory
+\subsection{Network architecture}
+For the first challenge, we started with designing and describing the test network. Our test network contains the domain controller (DC) with installed Windows Server 2012, the wiki and database servers with Windows Server 2003 and four client computers with Windows 7 Professional 64-bit. To complete the installation, we created four user accounts. All the above information is presented below in the form of compact lists.
+
+\begin{compactitem}
+\item [\textbf{Description of the network:}]
+\item 4 client computers with Windows 7 Professional 64-bit
+\item Domain controller with Widows Server 2012
+\item Wiki server with Windows Server 2003
+\item Database server with Windows Server 2003
+\end{compactitem}
+
+\begin{compactitem}
+\item [\textbf{Users:}]
+\item Ivanov
+\item Petrov
+\item Smirnov
+\item Admin
+\end{compactitem}
+     
+     
+\subsection{User behavior}
+\subsubsection{Normal scenario}
+In our configuration, all users have access to client computers, the wiki server and the database server, but only admin has direct access to the domain controller. In the case of the normal scenario, users log into client computers by their credentials and they do it several times per day. Users Petrov and Smirnov during the workday visit the wiki server, but Ivanov does not visit the wiki server despite that he has access. All users have access to the database server, but no one uses it in the normal scenario. In turn, admin usually logs into to his computer and during the workday he logs into to the domain controller, the database server and the wiki server by the remote desktop connection (RDP). The description of the normal scenario you can see in Figure 1. The lines show all allowed access to computers. The solid lines illustrate access, which are used by users, the dash lines show access, which are not used by users in the normal behavior despite that they are allowed to. 
+
+\begin{figure}[ht!]
+\centering
+%[width=90mm]
+%[width=\textwidth]
+\includegraphics[width=0.5\textwidth]{figures/scenario_normal.png}
+\caption{Normal scenario}
+\label{overflow}
+\end{figure}
+
+\subsubsection{Abnormal scenario}
+The abnormal scenario is the scenario that differs from the normal scenario by some unusual but acceptable behaviors. In our case, the abnormal scenario includes additional user behaviors. The first abnormal behavior is that the user Ivanov uses the wiki server. This behavior is abnormal but not suspicious, because other users use it every day. The second abnormal behavior is that the user Petrov uses the database server but in the normal scenario no one uses it. This user behavior is more suspicious and could be determined as an attack. The abnormal scenario is illustrated in Figure 2. The straight solid lines show normal user behavior, the curve solid line from Ivanov to the wiki server shows the first abnormal behavior and the curve solid line from Petrov to the database server shows the second abnormal behavior that is suspicious and could be determined as an attack. 
+\begin{figure}[ht!]
+\centering
+%[width=90mm]
+\includegraphics[width=0.5\textwidth]{figures/scenario_abnormal.png}
+\caption{Abnormal scenario}
+\label{overflow}
+\end{figure}
+
+\subsection{Implementation}
+The first part of the implementation is the deployment and the configuration of the test network environment. To set up the network, we used the Future SOC Lab\footnote{Future SOC Lab. http://hpi.de/en/research/future-soc-lab.html} with installed VMware ESXi. Firstly, we created the network to isolate our virtual machines from others hosted on the same ESXi server. Afterwards, all machines were deployed and configured as described in the section 2.1. We used Windows Server 2012 for the domain controller, Windows Server 2003 for the wiki and database servers and Windows 7 Professional 64-bit for client computers. 
+
+\begin{figure*}[ht!]
+\centering
+%%[width=90mm]
+\includegraphics[width=0.9\textwidth]{figures/simulator_architecture.png}
+\caption{Simulator's architecture}
+\label{overflow}
+\end{figure*}
+
+%\begin{figure}
+%\centering
+%\epsfig{file=figures/simulator_architecture.eps}
+%\caption{Simulator's architecture}
+%\end{figure}
+
+
+
+
+\begin{table*}[t]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Action                                                                                          & Command                                                                                                                        \\ \hline
+Open the logon window                                                                               & \begin{tabular}[c]{@{}l@{}}{[}'ctrl-alt-del', 'alt-w', 'right', 'right', 'right', 'right', 'enter'{]}\end{tabular}       \\ \hline
+\begin{tabular}[c]{@{}l@{}}Enter username, password and press the enter key\end{tabular}             & \begin{tabular}[c]{@{}l@{}}{[}':' + kwargs{[}'username'{]}, 'tab', ':' + kwargs{[}'password'{]}, 'enter'{]}\end{tabular} \\ \hline
+Log off                                                                                         & \begin{tabular}[c]{@{}l@{}}{[}'lsuper-r', ':shutdown /l /f', 'enter'{]}\end{tabular}                                     \\ \hline
+\begin{tabular}[c]{@{}l@{}}Run the powershell script to open the RDP connection\end{tabular} & {[}'cd /', 'powershell rdp.ps1{]}                                                                                        \\ \hline
+\end{tabular}
+\caption {Actions and commands}
+\end{table*}
+
+The architecture of the simulator is illustrated in Figure 3. This simulation tool is implemented on the python programming language and uses the virtual network computing (VNC) protocol to connect to virtual machines as the ESXi server supports the VNC protocol. But to use the VNC protocol, it is needed to enable VNC on the ESXi server, specify the VNC port for each virtual machine and support the VNC protocol on the application side. To use VNC in the simulator, we used the vncdotool library [3]. This library also can take a screenshot of the remote desktop. We used this screenshot functionality for checking a state of the virtual machine by comparing image histograms with predefined states. Once we determined the current state of the virtual machine, we can specify the activities to be undertaken in each case according to the scenario description, such as sending the \textit{ctrl+alt+delete} command to the virtual machine, entering the username and the password, opening the RDP connection and others. The RDP connection from the client computer to the database and wiki servers is implemented by invoking the PowerShell script hosted on the client computer. This script can accept parameters and it means that we can use the script to establish the connection with any server by specifying parameters, such as the IP address, the username and the password. In the Table 1 you can see examples of relations between actions that must be undertaken according to the scenario and commands passed to VM to perform it.
+
+
+
+\begin{figure}[ht!]
+\centering
+%[width=90mm]
+\includegraphics[width=0.5\textwidth]{figures/scenario_relations.png}
+\caption{Scenario relations}
+\label{overflow}
+\end{figure}
+
+
+\begin{figure*}[ht!]
+\centering
+%[width=90mm]
+%[width=0.8\textwidth]
+\includegraphics[width=0.9\textwidth]{figures/active_directory_logs_result.png}
+\caption{Active Directory's logs}
+\label{overflow}
+\end{figure*}
+
+
+%\begin{figure}
+%\centering
+%\epsfig{file=figures/active_directory_logs_result.eps}
+%\caption{Active Directory's logs}
+%\end{figure}
+
+%\begin{figure*}
+%\centering
+%\epsfig{file=figures/active_directory_logs_result.eps}
+%\caption{A sample black and white graphic (.eps format)
+%that needs to span two columns of text.}
+%\end{figure*}
+%and don't forget to end the environment with
+%{figure*}, not {figure}!
+
+
+In this paragraph, I show how we described the scenario of user behavior. The scenario descriptions are stored in \textit{csv} files. There are three \textit{csv} files. The first of them is called \textit{computers.csv}. It describes all computers that are involved in scenarios and it contains the information about the computer identifier, the IP address or the host, the VNC port, the VNC password and the type of operation system.
+The second file is called \textit{scenarios.csv}. It describes the main user activity, which is the connection to the client computer. The file contains the computer identifier referring to the identifier in the \textit{computer.csv} file, the username, the password, the session time, the count of sessions and the identifier referring to the identifier in the \textit{inner-scenarios.csv} file. The third file called \textit{inner-scenarios.csv} describes the actions of users after logging into the client computer. For example, it can describe the connection to the wiki server, database server, domain controller or even the connection to another client computer. The file contains the identifier, the host, the username, the password and the session time. There are two sets of \textit{csv} files. The first set is used to perform the normal scenario and the second is used to perform the abnormal scenario, respectively. The described relations between \textit{csv} files are illustrated in Figure 4.
+ 	
+ 	
+I have successfully used the simulator to simulate simple normal and abnormal scenarios. The normal scenario takes about 3,5 hours with 41 login and logout events into client computers and 25 RDP connections to the wiki and database servers. The abnormal scenario takes about 5,5 hours with 45 login and logout events to client computers and 34 RDP connections to the wiki and database servers. The result of running the simulator is set of logs in the active directory of the domain controller. This log dataset is presented in Figure 5. 
+
+
+ 
+%\end{document} 
